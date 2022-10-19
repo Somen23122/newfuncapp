@@ -11,8 +11,6 @@ pool:
   vmImage: 'demoselfhostedagent'
 
 steps:
-- script: 
-- task: CopyFiles@2
 - task: AzureFunction@1
   inputs:
     function: 'https://azurefunctionapp.azurewebsites.net/api/HttpTriggerJS1'
@@ -24,7 +22,12 @@ steps:
     SourceFolder: '$(agent.builddirectory)'
     Contents: '**'
     TargetFolder: '$(build.artifactstagingdirectory)'
-    
+- script: 
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(agent.builddirectory)'
+    Contents: '**'
+    TargetFolder: '$(build.artifactstagingdirectory)'    
 - script: 
 - task: PublishBuildArtifacts@1
   inputs:
