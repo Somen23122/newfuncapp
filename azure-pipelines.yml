@@ -1,0 +1,33 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  name: 'MyAgentSelfHosted'
+  vmImage: 'demoselfhostedagent'
+
+steps:
+- script: 
+- task: CopyFiles@2
+- task: AzureFunction@1
+  inputs:
+    function: 'https://azurefunctionapp.azurewebsites.net/api/HttpTriggerJS1'
+    key: 'somen'
+    method: 'POST'
+    body: 'Hi this is me'
+    waitForCompletion: 'false'
+  inputs:
+    SourceFolder: '$(agent.builddirectory)'
+    Contents: '**'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+    
+- script: 
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'Storagedrop'
+    publishLocation: 'Container'
