@@ -18,10 +18,6 @@ steps:
     method: 'POST'
     body: 'Hi this is me'
     waitForCompletion: 'false'
-  inputs:
-    SourceFolder: '$(agent.builddirectory)'
-    Contents: '**'
-    TargetFolder: '$(build.artifactstagingdirectory)'
 - script: 
 - task: CopyFiles@2
   inputs:
