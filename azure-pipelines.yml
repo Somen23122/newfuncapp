@@ -13,6 +13,13 @@ pool:
 steps:
 - script: 
 - task: CopyFiles@2
+- task: AzureFunction@1
+  inputs:
+    function: 'https://azurefunctionapp.azurewebsites.net/api/HttpTriggerJS1'
+    key: 'somen'
+    method: 'POST'
+    body: 'Hi this is me'
+    waitForCompletion: 'false'
   inputs:
     SourceFolder: '$(agent.builddirectory)'
     Contents: '**'
